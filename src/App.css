@@ -106,17 +106,22 @@ nav h1 {
 }
 
 .key {
-  width: 50px;
-  height: 70px;
-  margin: 5px;
-  border-radius: 4px;
-  display: grid;
-  place-items: center;
-  font-size: 20px;
-  background-color: grey;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-  cursor: pointer;
+    width: 50px;
+    height: 70px;
+    margin: 5px;
+    border-radius: 4px;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    background-color: #818384;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.key button:active:hover {
+    background-color: #4a4c4d;
+    color: #ffffff;
 }
 
 #big {
@@ -124,4 +129,22 @@ nav h1 {
 }
 #disabled {
   background-color: #3a393c;
+}
+
+.tile.flipAction {
+    animation: 0.5s linear flipping;
+}
+
+@keyframes flipping {
+    0% {
+        transform: rotateX(0deg);
+    }
+
+    50% {
+        transform: rotateX(90deg);
+    }
+
+    100% {
+        transform: rotateX(0deg);
+    }
 }

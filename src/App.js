@@ -8,10 +8,12 @@ import GameOver from "./components/GameOver";
 export const AppContext = createContext();
 
 function App() {
+  const wordList = ['DANCE', 'RINGS', 'ALTAR', 'BRIDE', 'GROOM', 'UNITY', 'DRESS', 'FEAST']
   const [board, setBoard] = useState(boardDefault);
   const [currAttempt, setCurrAttempt] = useState({ attempt: 0, letter: 0 });
   const [wordSet, setWordSet] = useState(new Set());
-  const [correctWord, setCorrectWord] = useState("");
+const [correctWord, setCorrectWord] = useState("");
+const [correctIndex, setCorrectIndex] = useState(0);
   const [disabledLetters, setDisabledLetters] = useState([]);
   const [gameOver, setGameOver] = useState({
     gameOver: false,
@@ -21,7 +23,8 @@ function App() {
   useEffect(() => {
     generateWordSet().then((words) => {
       setWordSet(words.wordSet);
-      setCorrectWord(words.todaysWord);
+        setCorrectWord(wordList[words.index]);
+        setCorrectIndex(words.index);
     });
   }, []);
 
@@ -31,13 +34,15 @@ function App() {
     let currWord = "";
     for (let i = 0; i < 5; i++) {
       currWord += board[currAttempt.attempt][i];
-    }
-    if (wordSet.has(currWord.toLowerCase())) {
+      }
+      console.log(wordSet)
+      if (wordSet.has(currWord.toLowerCase()+'\r')) {
+          setCurrAttempt({ attempt: currAttempt.attempt + 1, letter: 0 });
+      } else {
+          alert("Word not found");
+          return;
+      }
       setCurrAttempt({ attempt: currAttempt.attempt + 1, letter: 0 });
-    } else {
-      alert("Word not found");
-    }
-
     if (currWord === correctWord) {
       setGameOver({ gameOver: true, guessedWord: true });
       return;
@@ -57,7 +62,7 @@ function App() {
     setCurrAttempt({ ...currAttempt, letter: currAttempt.letter - 1 });
   };
 
-  const onSelectLetter = (key) => {
+const onSelectLetter = (key) => {
     if (currAttempt.letter > 4) return;
     const newBoard = [...board];
     newBoard[currAttempt.attempt][currAttempt.letter] = key;
@@ -71,7 +76,7 @@ function App() {
   return (
     <div className="App">
       <nav>
-        <h1>Wordle</h1>
+              <h1>Wordle - V+J Edition - Puzzle #{correctIndex+1}</h1>
       </nav>
       <AppContext.Provider
         value={{

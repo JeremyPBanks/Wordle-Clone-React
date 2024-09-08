@@ -10,7 +10,8 @@ function GameOver() {
     onSelectLetter,
     correctWord,
     onDelete,
-  } = useContext(AppContext);
+    } = useContext(AppContext);
+    const wordList = ['DANCE', 'RINGS', 'ALTAR', 'BRIDE', 'GROOM', 'UNITY', 'DRESS', 'FEAST']
   return (
     <div className="gameOver">
       <h3>
@@ -18,7 +19,7 @@ function GameOver() {
           ? "You Correctly Guessed the Wordle"
           : "You Failed to Guess the Word"}
       </h3>
-      <h1>Correct Word: {correctWord}</h1>
+          <h1>Correct Word: {correctWord}</h1>
       {gameOver.guessedWord && (
         <h3>You guessed in {currAttempt.attempt} attempts</h3>
       )}
